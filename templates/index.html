@@ -58,8 +58,38 @@
                 </ul>
                 <img src="/static/{{ sym }}_plot.png" alt="{{ sym }} 技術指標圖">
                 <img src="/static/{{ sym }}_bollinger.png" alt="{{ sym }} 布林通道圖">
+            
+                <h3>{{ symbol }}</h3>
+                <ul>
+                    <li>平均收盤價：{{ analysis.mean_close }}</li>
+                    
+                    <li><b>未來5日預測：</b>
+                        <ul>
+                            {% for day in analysis['未來5日預測'] %}
+                                <li>{{ day }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+                <li><b>預測 vs 實際（歷史回測）：</b>
+                <table border="1" cellpadding="4">
+                    <tr>
+                    <th>日期</th><th>預測</th><th>機率 (%)</th><th>實際</th><th>結果</th>
+                    </tr>
+                    {% for row in analysis['回測結果'] %}
+                        <tr>
+                        <td>{{ row['日期'] }}</td>
+                        <td>{{ row['預測'] }}</td>
+                        <td>{{ row['機率'] }}</td>
+                        <td>{{ row['實際'] }}</td>
+                        <td>{{ row['結果'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                </li>
             {% endfor %}
         {% endif %}
+
     </div>
 </body>
 </html>
